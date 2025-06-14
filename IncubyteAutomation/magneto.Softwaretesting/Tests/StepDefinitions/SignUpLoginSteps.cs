@@ -40,41 +40,115 @@ namespace IncubyteAutomation.StepDefinitions
             _loginPage.NavigateToLumaApplication();
         }
 
-        [Given(@"the user is on the registration page")]
-        public void GivenTheUserIsOnTheRegistrationPage()
+        [Given(@"the user navigates to the ""([^""]*)"" page")]
+        public void GivenTheUserNavigatesToThePage(string p0)
         {
             throw new PendingStepException();
         }
 
-        [When(@"the user enters valid details and submits the form")]
-        public void WhenTheUserEntersValidDetailsAndSubmitsTheForm()
+        [When(@"the user enters ""([^""]*)"" as ""([^""]*)""")]
+        public void WhenTheUserEntersAs(string p0, string firstName)
         {
             throw new PendingStepException();
         }
 
-        [Then(@"the user should be redirected to the My Account page")]
-        public void ThenTheUserShouldBeRedirectedToTheMyAccountPage()
+        [When(@"the user accepts terms and conditions if present")]
+        public void WhenTheUserAcceptsTermsAndConditionsIfPresent()
         {
             throw new PendingStepException();
         }
 
-        [Given(@"the user is on the login page")]
-        public void GivenTheUserIsOnTheLoginPage()
+        [When(@"the user clicks the ""([^""]*)"" button")]
+        public void WhenTheUserClicksTheButton(string p0)
         {
             throw new PendingStepException();
         }
 
-        [When(@"the user enters valid credentials and clicks Sign In")]
-        public void WhenTheUserEntersValidCredentialsAndClicksSignIn()
+        [Then(@"the user should be navigated to ""([^""]*)"" page")]
+        public void ThenTheUserShouldBeNavigatedToPage(string p0)
         {
             throw new PendingStepException();
         }
 
-        [Then(@"the user should see the My Account page")]
-        public void ThenTheUserShouldSeeTheMyAccountPage()
+        [Then(@"the user should see message ""([^""]*)""")]
+        public void ThenTheUserShouldSeeMessage(string p0)
         {
             throw new PendingStepException();
         }
+
+        [Then(@"the user should be logged in as ""([^""]*)""")]
+        public void ThenTheUserShouldBeLoggedInAs(string firstName)
+        {
+            throw new PendingStepException();
+        }
+
+        [When(@"the user clicks on the Welcome user icon")]
+        public void WhenTheUserClicksOnTheWelcomeUserIcon()
+        {
+            throw new PendingStepException();
+        }
+
+        [When(@"the user clicks on ""([^""]*)""")]
+        public void WhenTheUserClicksOn(string p0)
+        {
+            throw new PendingStepException();
+        }
+
+        [Then(@"the user should be logged out successfully")]
+        public void ThenTheUserShouldBeLoggedOutSuccessfully()
+        {
+            throw new PendingStepException();
+        }
+
+        [Then(@"the user should see error message ""([^""]*)""")]
+        public void ThenTheUserShouldSeeErrorMessage(string p0)
+        {
+            throw new PendingStepException();
+        }
+
+        [Then(@"the user should see validation error for password mismatch")]
+        public void ThenTheUserShouldSeeValidationErrorForPasswordMismatch()
+        {
+            throw new PendingStepException();
+        }
+
+
+        [Then(@"the user should see password strength error message")]
+        public void ThenTheUserShouldSeePasswordStrengthErrorMessage()
+        {
+            throw new PendingStepException();
+        }
+
+        [Then(@"the user should see validation errors for all required fields")]
+        public void ThenTheUserShouldSeeValidationErrorsForAllRequiredFields()
+        {
+            throw new PendingStepException();
+        }
+
+        [Then(@"the password fields should be masked")]
+        public void ThenThePasswordFieldsShouldBeMasked()
+        {
+            throw new PendingStepException();
+        }
+
+        [Then(@"the page title should be ""([^""]*)""")]
+        public void ThenThePageTitleShouldBe(string p0)
+        {
+            throw new PendingStepException();
+        }
+
+        [Then(@"the page URL should contain ""([^""]*)""")]
+        public void ThenThePageURLShouldContain(string p0)
+        {
+            throw new PendingStepException();
+        }
+
+        [Then(@"the user should see the following fields on Sign-Up page:")]
+        public void ThenTheUserShouldSeeTheFollowingFieldsOnSign_UpPage(Table table)
+        {
+            throw new PendingStepException();
+        }
+
 
 
 
