@@ -4,6 +4,7 @@
 
 namespace IncubyteAutomation.Core
 {
+    using AventStack.ExtentReports;
     using NUnit.Framework;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Chrome;
@@ -40,9 +41,17 @@ namespace IncubyteAutomation.Core
             this.driver.Manage().Window.Maximize();
             this.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(double.Parse(TestContext.Parameters["ImplicitWait"]));
             this.driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(double.Parse(TestContext.Parameters["PageLoad"]));
-            this.driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(double.Parse(TestContext.Parameters["AsynchronousJavaScript"]));
         }
-
+        /// <summary>
+        /// To Capture Screenshot.
+        /// </summary>
+        /// <param name="name">Screenshot name.</param>
+        /// <returns>Returns Sreenshot.</returns>
+        public MediaEntityModelProvider CaptureScreenshotAndReturn(string name)
+        {
+            var screenshot = ((ITakesScreenshot)this.driver).GetScreenshot().AsBase64EncodedString;
+            return MediaEntityBuilder.CreateScreenCaptureFromBase64String(screenshot).Build();
+        }
         /// <summary>
         /// To close the driver.
         /// </summary>
