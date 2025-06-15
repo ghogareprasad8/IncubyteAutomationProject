@@ -9,6 +9,7 @@ namespace IncubyteAutomation.Core
     using OpenQA.Selenium.Chrome;
     using System;
     using System.IO;
+    using AventStack.ExtentReports;
 
     /// <summary>
     /// Manages WebDriver instance and supports screenshot capture.
@@ -48,43 +49,15 @@ namespace IncubyteAutomation.Core
         }
 
         /// <summary>
-        /// Captures a screenshot and saves it locally.
+        /// To Capture Screenshot.
         /// </summary>
-        /// <param name="scenarioName">The name used to save the screenshot file.</param>
-        /// <returns>The full path of the saved screenshot.</returns>
-        // WebDriverContext.cs
-        public string CaptureScreenshot(string scenarioName, int stepNumber)
+        /// <param name="name">Screenshot name.</param>
+        /// <returns>Returns Sreenshot.</returns>
+        public MediaEntityModelProvider CaptureScreenshotAndReturn(string name)
         {
-            try
-            {
-                // Get clean scenario name for folder
-                string safeScenarioName = string.Join("_", scenarioName.Split(Path.GetInvalidFileNameChars()));
-
-                // Folder path relative to base directory
-                string baseFolder = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\magneto.Softwaretesting\Results\Screenshots", safeScenarioName));
-
-                if (!Directory.Exists(baseFolder))
-                {
-                    Directory.CreateDirectory(baseFolder);
-                }
-
-                // Define filename as Step1, Step2...
-                string fileName = $"Step{stepNumber}.png";
-                string fullPath = Path.Combine(baseFolder, fileName);
-
-                var screenshot = ((ITakesScreenshot)this.driver).GetScreenshot();
-                File.WriteAllBytes(fullPath, screenshot.AsByteArray);
-
-                Console.WriteLine($"[Screenshot] Saved to: {fullPath}");
-                return fullPath;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"[Screenshot] Failed: {ex.Message}");
-                return null;
-            }
+            var screenshot = ((ITakesScreenshot)this.driver).GetScreenshot().AsBase64EncodedString;
+            return MediaEntityBuilder.CreateScreenCaptureFromBase64String(screenshot, name).Build();
         }
-
 
         /// <summary>
         /// Quits the WebDriver instance.
