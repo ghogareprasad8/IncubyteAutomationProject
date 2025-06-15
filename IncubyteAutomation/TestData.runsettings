@@ -8,6 +8,14 @@
 		<Parameter name="loginURL" value="https://magento.softwaretestingboard.com/" />
 		<Parameter name="ImplicitWait" value="10" />
 		<Parameter name="PageLoad" value="10" />
+		<Parameter name="firstName" value="John" />
+		<Parameter name="lastName" value="Doe" />
+		<Parameter name="email" value="john.doe@example.com" />
+		<Parameter name="uniqueEmail" value="john.doe+001@example.com" />
+		<Parameter name="existingEmail" value="john.doe@example.com" />
+		<Parameter name="password" value="Pass@1234" />
+		<Parameter name="mismatchPassword" value="Pass@5678" />
+		<Parameter name="weakPassword" value="Test1" />
 		
 		<!-- Add more parameters as needed -->
 	</TestRunParameters>

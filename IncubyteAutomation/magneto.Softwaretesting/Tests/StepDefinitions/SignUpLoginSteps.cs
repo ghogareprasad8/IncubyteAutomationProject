@@ -9,6 +9,8 @@ namespace IncubyteAutomation.StepDefinitions
     
     using NUnit.Framework;
     using OpenQA.Selenium;
+    using System.Security.AccessControl;
+    using System.Security.Cryptography.X509Certificates;
     using TechTalk.SpecFlow;
 
     /// <summary>
@@ -23,6 +25,7 @@ namespace IncubyteAutomation.StepDefinitions
         private readonly CreateAccountPage _createAccountPage;
         private readonly HomePage _homePage;
         private readonly MyAccountPage _myAccountPage;
+        private readonly Reusable _reuable;
 
         public SignUpLoginSteps(WebDriverContext webDriverContext, ScenarioContext scenarioContext)
         {
@@ -32,6 +35,7 @@ namespace IncubyteAutomation.StepDefinitions
             _createAccountPage = new CreateAccountPage(_webDriverContext.driver, scenarioContext);
             _homePage = new HomePage(_webDriverContext.driver, scenarioContext);
             _myAccountPage = new MyAccountPage(_webDriverContext.driver, scenarioContext);
+            _reuable = new Reusable(_webDriverContext.driver, scenarioContext);
         }
 
         [Given(@"the user is on the e-commerce website")]
@@ -43,55 +47,48 @@ namespace IncubyteAutomation.StepDefinitions
         [Given(@"the user navigates to the ""([^""]*)"" page")]
         public void GivenTheUserNavigatesToThePage(string p0)
         {
-            throw new PendingStepException();
+            this._createAccountPage.ClickOnHeaderLinks(p0);
         }
 
         [When(@"the user enters ""([^""]*)"" as ""([^""]*)""")]
-        public void WhenTheUserEntersAs(string p0, string firstName)
+        public void WhenTheUserEntersAs(string feildTitle, string value)
         {
-            throw new PendingStepException();
-        }
-
-        [When(@"the user accepts terms and conditions if present")]
-        public void WhenTheUserAcceptsTermsAndConditionsIfPresent()
-        {
-            throw new PendingStepException();
+            this._createAccountPage.EnterValueInTheFeild(feildTitle , value);
         }
 
         [When(@"the user clicks the ""([^""]*)"" button")]
         public void WhenTheUserClicksTheButton(string p0)
         {
-            throw new PendingStepException();
+            this._createAccountPage.ClickOnTheButton(p0);
         }
-
+        
         [Then(@"the user should be navigated to ""([^""]*)"" page")]
         public void ThenTheUserShouldBeNavigatedToPage(string p0)
         {
-            throw new PendingStepException();
+            this._createAccountPage.ValidateThatTheUserIsNavigatedToPage(p0);
         }
 
         [Then(@"the user should see message ""([^""]*)""")]
         public void ThenTheUserShouldSeeMessage(string p0)
         {
-            throw new PendingStepException();
+            this._myAccountPage.ValidateThatTheSuccessfulAlertMessageIsDisplayed(p0);
         }
-
-        [Then(@"the user should be logged in as ""([^""]*)""")]
-        public void ThenTheUserShouldBeLoggedInAs(string firstName)
+        [Then(@"the user should be logged in as ""([^""]*)"" ""([^""]*)""")]
+        public void ThenTheUserShouldBeLoggedInAs(string firstName, string lastName)
         {
-            throw new PendingStepException();
+            this._myAccountPage.ValidateTheloggedInUserName($"Welcome, {TestContext.Parameters[firstName]} {TestContext.Parameters[lastName]}!");
         }
 
         [When(@"the user clicks on the Welcome user icon")]
         public void WhenTheUserClicksOnTheWelcomeUserIcon()
         {
-            throw new PendingStepException();
+            this._myAccountPage.ClickOnTheWelcomeUserIcon();
         }
 
         [When(@"the user clicks on ""([^""]*)""")]
         public void WhenTheUserClicksOn(string p0)
         {
-            throw new PendingStepException();
+            this._myAccountPage.ClickOnTheCustomerMenuOption(p0);
         }
 
         [Then(@"the user should be logged out successfully")]
@@ -99,17 +96,29 @@ namespace IncubyteAutomation.StepDefinitions
         {
             throw new PendingStepException();
         }
+        [Then(@"after (.*) seconds, the user should be redirected to the home page")]
+        public void ThenAfterSecondsTheUserShouldBeRedirectedToTheHomePage(int p0)
+        {
+            bool redirected = this._homePage.VerifyUserRedirectedToHomePage(p0, TestContext.Parameters["loginURL"]);
+            Assert.IsTrue(redirected, $"Expected to be redirected to {TestContext.Parameters["loginURL"]}, but was not."); ;
+        }
+
 
         [Then(@"the user should see error message ""([^""]*)""")]
         public void ThenTheUserShouldSeeErrorMessage(string p0)
         {
             throw new PendingStepException();
         }
-
-        [Then(@"the user should see validation error for password mismatch")]
-        public void ThenTheUserShouldSeeValidationErrorForPasswordMismatch()
+        [Then(@"the user should see validation error ""([^""]*)"" for ""([^""]*)"" feild")]
+        public void ThenTheUserShouldSeeValidationErrorForFeild(string p0, string p1)
         {
-            throw new PendingStepException();
+            this._createAccountPage.VerifyFeildValidationMessage(p1, p0);
+        }
+
+        [When(@"the user enters ""([^""]*)"" in the email feild")]
+        public void WhenTheUserEntersInTheEmailFeild(string value)
+        {
+            this._createAccountPage.EnterValueInTheEmailFeild("Email", value);
         }
 
 
