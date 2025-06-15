@@ -4,17 +4,13 @@
 
 namespace IncubyteAutomation.Core
 {
-    using Newtonsoft.Json.Linq;
     using NUnit.Framework;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Support.UI;
     using SeleniumExtras.WaitHelpers;
     using System;
-    using System.Collections.Generic;
-    using System.IO;
     using System.Threading.Tasks;
     using TechTalk.SpecFlow;
-    using Actions = OpenQA.Selenium.Interactions.Actions;
 
     /// <summary>
     /// Reusable Class.
@@ -35,10 +31,6 @@ namespace IncubyteAutomation.Core
         /// Gets or sets web driver object.
         /// </summary>
         public IWebDriver driver { get; set; }
-
-        private int zoomValue = 100;
-        private int zoomIncrement = 30;
-
         public Reusable(IWebDriver driver, ScenarioContext scenarioContext)
         {
             this.driver = driver;
@@ -71,58 +63,6 @@ namespace IncubyteAutomation.Core
             catch (Exception ex)
             {
                 Console.WriteLine("Error in Scrolling to Particular element, Error message: " + ex.Message);
-            }
-        }
-        protected void ScrollToElement(IWebElement element)
-        {
-            try
-            {
-                Actions actions = new Actions(this.driver);
-                actions.MoveToElement(element);
-                actions.Perform();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception message is " + e.Message);
-            }
-        }
-        protected bool ElementUnavailability(By locator, string report)
-        {
-            try
-            {
-
-                IList<IWebElement> element = this.driver.FindElements(locator);
-
-                if (element.Count == 0)
-                {
-                    Console.WriteLine(report + " is not Available");
-
-                    return true;
-                }
-                else
-                {
-                    Console.WriteLine(report + " is Available");
-                    return false;
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception message is " + e.Message);
-                return false;
-            }
-        }
-        protected void CleanUp()
-        {
-            try
-            {
-                if (this.driver != null)
-                {
-                    this.driver.Quit();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception message is " + e.Message);
             }
         }
         protected void LaunchURL(string url)
@@ -199,19 +139,6 @@ namespace IncubyteAutomation.Core
                 }
             }
         }
-        protected void WaitUntilElementVisible(By locator)
-        {
-            try
-            {
-                Task.Delay(3000).Wait();
-                var wait = new WebDriverWait(this.driver, TimeSpan.FromSeconds(double.Parse(TestContext.Parameters["ImplicitWait"])));
-                wait.Until(ExpectedConditions.ElementIsVisible(locator));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception message is " + e.Message);
-            }
-        }
         protected bool ElementAvailability(By locator)
         {
             try
@@ -261,76 +188,16 @@ namespace IncubyteAutomation.Core
         {
             return this.driver.FindElement(locator).Text;
         }
-        protected string ReturnAttributeValue(By locater, string attr)
-        {
-            try
-            {
-                this.JavaScrollToElement(locater);
-                var attributeValue = this.driver.FindElement(locater).GetAttribute(attr).Trim();
-                Console.WriteLine($"value of attribute {attr} for locator {locater} is equal to {attributeValue}");
-                return attributeValue;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception message is " + e.Message);
-                return null;
-            }
-        }
-        protected IList<IWebElement> ReturnListOfWebElements(By locater)
-        {
-            IList<IWebElement> webElement = this.driver.FindElements(locater);
-            return webElement;
-        }
-        protected void UpdateJson(string section, string key, string newValue)
-        {
-            try
-            {
-                string path = $@"{AppDomain.CurrentDomain.BaseDirectory}AppSettings.json";
-                JObject jObject = JObject.Parse(File.ReadAllText(path));
-                jObject[section][key] = newValue;
-                File.WriteAllText(path, jObject.ToString());
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception message is " + e.Message);
-            }
-        }
         protected IWebElement WaitAndFindWebElement(By by)
         {
             var webDriverWait = new WebDriverWait(this.driver, TimeSpan.FromSeconds(double.Parse(TestContext.Parameters["ImplicitWait"])));
             return webDriverWait.Until(ExpectedConditions.ElementExists(by));
-        }
-        protected IWebElement FluentWaitAndFindWebElement(By by)
-        {
-            WebDriverWait fluentWait = new WebDriverWait(this.driver, TimeSpan.FromSeconds(double.Parse(TestContext.Parameters["FluentWait"])))
-            {
-                PollingInterval = TimeSpan.FromSeconds(double.Parse(TestContext.Parameters["PollingInterval"])),
-            };
-            fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            return fluentWait.Until(x => x.FindElement(by));
-        }
-        protected void WaitForAjax()
-        {
-            var webDriverWait = new WebDriverWait(this.driver, TimeSpan.FromSeconds(double.Parse(TestContext.Parameters["ImplicitWait"])));
-            var js = (IJavaScriptExecutor)this.driver;
-            webDriverWait.Until(wd => js.ExecuteScript("return !!window.jQuery && window.jQuery.active == 0"));
-        }
-        protected void Refresh()
-        {
-            this.driver.Navigate().Refresh();
-            this.WaitForAjax();
-        }
+        }  
         protected void WaitUntilPageLoadsCompletely()
         {
             var webDriverWait = new WebDriverWait(this.driver, TimeSpan.FromSeconds(double.Parse(TestContext.Parameters["ImplicitWait"])));
             var js = (IJavaScriptExecutor)this.driver;
             webDriverWait.Until(wd => js.ExecuteScript("return document.readyState").ToString() == "complete");
-        }
-        protected int CountElements(By by)
-        {
-            Task.Delay(1000).Wait();
-            IList<IWebElement> elements = this.driver.FindElements(by);
-            return elements.Count;
         }
         protected bool WaitForRedirectionToUrl(string expectedUrl, int waitTimeInSeconds = 5)
         {
@@ -354,6 +221,23 @@ namespace IncubyteAutomation.Core
             {
                 Console.WriteLine("Exception message is " + ex.Message);
                 return false;
+            }
+        }
+        protected void VerifyPartialUrl(string expectedPartialUrl)
+        {
+            try
+            {
+                string currentUrl = this.driver.Url;
+                if (!currentUrl.Contains(expectedPartialUrl))
+                {
+                    throw new Exception($"Expected URL to contain '{expectedPartialUrl}', but found '{currentUrl}'.");
+                }
+                Console.WriteLine($"Verified: Current URL contains '{expectedPartialUrl}'");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error while verifying URL: {ex.Message}");
+                throw;
             }
         }
 

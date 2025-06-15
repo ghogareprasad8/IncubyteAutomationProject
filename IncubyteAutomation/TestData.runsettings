@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
 	<RunConfiguration>
-		<ResultsDirectory>.\TestResults</ResultsDirectory>
+		<ResultsDirectory>.\magneto.Softwaretesting\TestResults</ResultsDirectory>
 	</RunConfiguration>
 
 	<TestRunParameters>
@@ -16,7 +16,5 @@
 		<Parameter name="password" value="Pass@1234" />
 		<Parameter name="mismatchPassword" value="Pass@5678" />
 		<Parameter name="weakPassword" value="Test1" />
-		
-		<!-- Add more parameters as needed -->
 	</TestRunParameters>
 </RunSettings>

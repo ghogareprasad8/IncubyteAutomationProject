@@ -29,7 +29,7 @@ public class LoginPage : Reusable
     public ScenarioContext _scenarioContext;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="NavHeader"/> class.
+    /// Initializes a new instance of the <see cref="Reusable"/> class.
     /// </summary>
     /// <param name="driver">Driver.</param>
     /// <param name="scenarioContext">Scenario Context.</param>
@@ -42,27 +42,6 @@ public class LoginPage : Reusable
     #region Elements
 
     private By _homePageText = By.XPath("//span[@data-ui-id='page-title-wrapper']");
-   
-
-    private By AllSurveysValueSelectionlink(string value)
-    {
-        return By.XPath($"//div[@aria-expanded='true']//a[contains(text(),'{value}')]");
-    }
-
-    private By SelectTheEngagement(string engagementName)
-    {
-        return By.XPath($"(//h3[a[text()='{engagementName}']]/a)[1]");
-    }
-
-    private By TxtDataSelection(string value)
-    {
-        return By.XPath($"//a[contains(text(),'{value}')]");
-    }
-
-    private By ExportableReportsValueSelectionlink(string value)
-    {
-        return By.XPath($"//div[@aria-expanded='true']//a[contains(text(),'{value}')]");
-    }
 
     #endregion
 
@@ -78,24 +57,5 @@ public class LoginPage : Reusable
         this.ElementOperations("verify", _homePageText, "Home Page", $"{_homePageText} is displayed");
 
     }
-
-
-    /// <summary>
-    /// To Add loggedIn user name and record.
-    /// </summary>
-    public void AddLoginUserName()
-    {
-        //this._scenarioContext.Add("loginUserName", this.ReturnAttributeValue(this._loginUserName, "title"));
-    }
-
-    /// <summary>
-    /// To Get loggedIn user name and record.
-    /// </summary>
-    /// <returns>Returns Logged in User name.</returns>
-    public string GetLoginUserName()
-    {
-        return this._scenarioContext.Get<string>("loginUserName");
-    }
-
     #endregion
 }

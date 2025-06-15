@@ -137,7 +137,7 @@ namespace IncubyteAutomation.StepDefinitions
         [Then(@"the password fields should be masked")]
         public void ThenThePasswordFieldsShouldBeMasked()
         {
-            throw new PendingStepException();
+            Assert.IsTrue(this._createAccountPage.IsPasswordFieldMasked(), "The password field is not masked.");
         }
 
         [Then(@"the page title should be ""([^""]*)""")]
@@ -147,15 +147,20 @@ namespace IncubyteAutomation.StepDefinitions
         }
 
         [Then(@"the page URL should contain ""([^""]*)""")]
-        public void ThenThePageURLShouldContain(string p0)
+        public void ThenThePageURLShouldContain(string expectedPartialUrl)
         {
-            throw new PendingStepException();
+            this._createAccountPage.VerifyUrlContains(expectedPartialUrl);
         }
 
         [Then(@"the user should see the following fields on Sign-Up page:")]
         public void ThenTheUserShouldSeeTheFollowingFieldsOnSign_UpPage(Table table)
         {
-            throw new PendingStepException();
+            foreach (var row in table.Rows)
+            {
+                string field = row[0];
+                Assert.IsTrue(_createAccountPage.IsFieldOrButtonAvailable(field),
+                    $"Element '{field}' is not visible on the Sign-Up page.");
+            }
         }
 
 

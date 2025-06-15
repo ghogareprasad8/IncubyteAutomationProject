@@ -4,13 +4,10 @@
 
 namespace IncubyteAutomation.Magneto_Softwaretesting.Pages;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using IncubyteAutomation.Core;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using IncubyteAutomation.Core;
+using System;
 using TechTalk.SpecFlow;
 
 /// <summary>
@@ -28,8 +25,9 @@ public class CreateAccountPage : Reusable
     /// </summary>
     public ScenarioContext _scenarioContext;
 
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="NavHeader"/> class.
+    /// Initializes a new instance of the <see cref="Reusable"/> class.
     /// </summary>
     /// <param name="driver">Driver.</param>
     /// <param name="scenarioContext">Scenario Context.</param>
@@ -45,10 +43,10 @@ public class CreateAccountPage : Reusable
     private By _loginUserName = By.CssSelector(".sdk-avatar.sdk-avatar-sm.bg-primary >abbr");
     private By _dashboardMenuItem = By.CssSelector("a[aria-label='Dashboards'] >i");
     private By _engagementDashboard = By.CssSelector("a.dropdown-item[aria-label='Engagement Dashboard']");
-
+    private By _passwordField = By.Id("password"); // Replace with actual locator
     private By inputFeildByTitle(string inputTitle)
     {
-        return By.XPath($"//input[@title='{inputTitle}']");
+        return By.XPath($"//input[@title='{inputTitle}'] | //button[@title='{inputTitle}']");
     }
 
     private By buttonWithText(string buttonText)
@@ -95,7 +93,7 @@ public class CreateAccountPage : Reusable
         {
             if (!ScenarioContext.Current.ContainsKey("GeneratedEmail"))
             {
-                string uniqueEmail = $"test_{DateTime.Now:yyyyMMddHHmmssfff}@test.com";
+                string uniqueEmail = $"test_{this.RandomNumber(3)}@test.com";
                 ScenarioContext.Current["GeneratedEmail"] = uniqueEmail;
 
                 // Optionally store in FeatureContext if you want to share across scenarios
@@ -130,5 +128,30 @@ public class CreateAccountPage : Reusable
         this.ElementOperations("verify", this.feildValidationMessage(feildName), validationMessage, $"{validationMessage} is displayed for {feildName} field");
     }
 
+    public bool IsFieldOrButtonAvailable(string fieldTitle)
+    {
+        try
+        {
+            if (ElementAvailability(inputFeildByTitle(fieldTitle)))
+                return true;
+
+            return false;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error finding field or button '{fieldTitle}': {ex.Message}");
+            return false;
+        }
+    }
+
+    public void VerifyUrlContains(string expectedPartialUrl) {
+        this.VerifyPartialUrl(expectedPartialUrl);
+       
+    }
+
+    public bool IsPasswordFieldMasked()
+    {
+        return this.WaitAndFindWebElement(_passwordField).GetAttribute("type") == "password";
+    }
     #endregion
 }

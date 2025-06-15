@@ -66,12 +66,17 @@ Scenario: TC004_Sign-Up With Weak Password
 	And the user enters "Password" as "weakPassword"
 	And the user enters "Confirm Password" as "weakPassword"
 	And the user clicks the "Create an Account" button
-	Then the user should see password strength error message
+	Then the user should see validation error "Minimum length of this field must be equal or greater than 8 symbols. Leading and trailing spaces will be ignored." for "Password" feild
 
 @Negative @SignUp @TC005
 Scenario: TC005_Leave All Fields Blank
 	When the user clicks the "Create an Account" button
-	Then the user should see validation errors for all required fields
+	Then the user should see validation error "This is a required field." for "First Name" feild
+	And the user should see validation error "This is a required field." for "Last Name" feild
+	And the user should see validation error "This is a required field." for "Email" feild
+	And the user should see validation error "This is a required field." for "Password" feild
+	And the user should see validation error "This is a required field." for "Confirm Password" feild
+
 
 @Negative @SignUp @TC006
 Scenario Outline: TC006_Invalid Email Format
@@ -89,12 +94,8 @@ Examples:
 	| @example.com |
 	| test@com     |
 
-@UI @SignUp @TC007
-Scenario: TC007_Password Field Masking
-	Then the password fields should be masked
-
-@Positive @SignUp @TC008
-Scenario: TC008_Page Title and URL Verification After Sign-Up
+@Positive @SignUp @TC007
+Scenario: TC007_Page Title and URL Verification After Sign-Up
 	When the user enters "First Name" as "firstName"
 	And the user enters "Last Name" as "lastName"
 	And the user enters "Email" as "uniqueEmail"
@@ -104,8 +105,8 @@ Scenario: TC008_Page Title and URL Verification After Sign-Up
 	Then the user should be navigated to "My Account" page
 	And the page URL should contain "/customer/account/"
 
-@UI @SignUp @TC009
-Scenario: TC009_Sign-Up Page Field Presence
+@UI @SignUp @TC008
+Scenario: TC008_Sign-Up Page Field Presence
 	Then the user should see the following fields on Sign-Up page:
 		| First Name        |
 		| Last Name         |

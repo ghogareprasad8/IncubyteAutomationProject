@@ -386,7 +386,9 @@ this.FeatureBackground();
  testRunner.And("the user clicks the \"Create an Account\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 69
- testRunner.Then("the user should see password strength error message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the user should see validation error \"Minimum length of this field must be equal " +
+                        "or greater than 8 symbols. Leading and trailing spaces will be ignored.\" for \"Pa" +
+                        "ssword\" feild", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -432,7 +434,24 @@ this.FeatureBackground();
  testRunner.When("the user clicks the \"Create an Account\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 74
- testRunner.Then("the user should see validation errors for all required fields", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the user should see validation error \"This is a required field.\" for \"First Name\"" +
+                        " feild", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 75
+ testRunner.And("the user should see validation error \"This is a required field.\" for \"Last Name\" " +
+                        "feild", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 76
+ testRunner.And("the user should see validation error \"This is a required field.\" for \"Email\" feil" +
+                        "d", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 77
+ testRunner.And("the user should see validation error \"This is a required field.\" for \"Password\" f" +
+                        "eild", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 78
+ testRunner.And("the user should see validation error \"This is a required field.\" for \"Confirm Pas" +
+                        "sword\" feild", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -461,7 +480,7 @@ this.FeatureBackground();
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("invalidEmail", invalidEmail);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("TC006_Invalid Email Format", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 77
+#line 82
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -484,25 +503,25 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 78
+#line 83
  testRunner.When("the user enters \"First Name\" as \"firstName\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 79
+#line 84
  testRunner.And("the user enters \"Last Name\" as \"lastName\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 80
+#line 85
  testRunner.And(string.Format("the user enters \"{0}\" in the email feild", invalidEmail), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 81
+#line 86
  testRunner.And("the user enters \"Password\" as \"password\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 82
+#line 87
  testRunner.And("the user enters \"Confirm Password\" as \"password\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 83
+#line 88
  testRunner.And("the user clicks the \"Create an Account\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 84
+#line 89
  testRunner.Then("the user should see validation error \"Please enter a valid email address\" for \"Em" +
                         "ail\" feild", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -511,62 +530,19 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("TC007_Password Field Masking")]
-        [NUnit.Framework.CategoryAttribute("UI")]
-        [NUnit.Framework.CategoryAttribute("SignUp")]
-        [NUnit.Framework.CategoryAttribute("TC007")]
-        public virtual void TC007_PasswordFieldMasking()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "UI",
-                    "SignUp",
-                    "TC007"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("TC007_Password Field Masking", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 93
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 7
-this.FeatureBackground();
-#line hidden
-#line 94
- testRunner.Then("the password fields should be masked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("TC008_Page Title and URL Verification After Sign-Up")]
+        [NUnit.Framework.DescriptionAttribute("TC007_Page Title and URL Verification After Sign-Up")]
         [NUnit.Framework.CategoryAttribute("Positive")]
         [NUnit.Framework.CategoryAttribute("SignUp")]
-        [NUnit.Framework.CategoryAttribute("TC008")]
-        public virtual void TC008_PageTitleAndURLVerificationAfterSign_Up()
+        [NUnit.Framework.CategoryAttribute("TC007")]
+        public virtual void TC007_PageTitleAndURLVerificationAfterSign_Up()
         {
             string[] tagsOfScenario = new string[] {
                     "Positive",
                     "SignUp",
-                    "TC008"};
+                    "TC007"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("TC008_Page Title and URL Verification After Sign-Up", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 97
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("TC007_Page Title and URL Verification After Sign-Up", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 98
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -589,28 +565,28 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 98
+#line 99
  testRunner.When("the user enters \"First Name\" as \"firstName\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 99
+#line 100
  testRunner.And("the user enters \"Last Name\" as \"lastName\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 100
+#line 101
  testRunner.And("the user enters \"Email\" as \"uniqueEmail\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 101
+#line 102
  testRunner.And("the user enters \"Password\" as \"password\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 102
+#line 103
  testRunner.And("the user enters \"Confirm Password\" as \"password\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 103
+#line 104
  testRunner.And("the user clicks the \"Create an Account\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 104
+#line 105
  testRunner.Then("the user should be navigated to \"My Account\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 105
+#line 106
  testRunner.And("the page URL should contain \"/customer/account/\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -618,19 +594,19 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("TC009_Sign-Up Page Field Presence")]
+        [NUnit.Framework.DescriptionAttribute("TC008_Sign-Up Page Field Presence")]
         [NUnit.Framework.CategoryAttribute("UI")]
         [NUnit.Framework.CategoryAttribute("SignUp")]
-        [NUnit.Framework.CategoryAttribute("TC009")]
-        public virtual void TC009_Sign_UpPageFieldPresence()
+        [NUnit.Framework.CategoryAttribute("TC008")]
+        public virtual void TC008_Sign_UpPageFieldPresence()
         {
             string[] tagsOfScenario = new string[] {
                     "UI",
                     "SignUp",
-                    "TC009"};
+                    "TC008"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("TC009_Sign-Up Page Field Presence", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 108
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("TC008_Sign-Up Page Field Presence", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 109
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -665,7 +641,7 @@ this.FeatureBackground();
                             "Confirm Password"});
                 table1.AddRow(new string[] {
                             "Create an Account"});
-#line 109
+#line 110
  testRunner.Then("the user should see the following fields on Sign-Up page:", ((string)(null)), table1, "Then ");
 #line hidden
             }

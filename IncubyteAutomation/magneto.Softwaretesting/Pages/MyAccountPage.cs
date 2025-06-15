@@ -3,14 +3,9 @@
 // </copyright>
 
 namespace IncubyteAutomation.Magneto_Softwaretesting.Pages;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using IncubyteAutomation.Core;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using IncubyteAutomation.Core;
 using TechTalk.SpecFlow;
 
 /// <summary>
@@ -28,8 +23,9 @@ public class MyAccountPage : Reusable
     /// </summary>
     public ScenarioContext _scenarioContext;
 
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="NavHeader"/> class.
+    /// Initializes a new instance of the <see cref="Reusable"/> class.
     /// </summary>
     /// <param name="driver">Driver.</param>
     /// <param name="scenarioContext">Scenario Context.</param>
